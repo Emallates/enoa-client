@@ -1,0 +1,17 @@
+{
+  "name": "enoa-client",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Nauman Ramzan ( nomi@emallates.com )"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Emallates/enoa-client",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

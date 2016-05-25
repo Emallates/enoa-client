@@ -8,7 +8,7 @@
 //     }
 // })( this );
 
-var connector = require('./lib/connectors/node.js')
+var connector = require('./lib/connectors/http.js')
 var client = require('./lib/enoaclient');
 client.connector = connector;
 module.exports = client;

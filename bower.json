@@ -1,7 +1,7 @@
 {
   "name": "enoa-client",
   "description": "",
-  "main": "server.js",
+  "main": "builds/enoaclient.vanilla.js",
   "authors": [
     "Nauman Ramzan ( nomi@emallates.com )"
   ],
@@ -13,5 +13,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ], 
+  "moduleType": ["globals","node" ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Emallates/enoa-client.git"
+  }
 }

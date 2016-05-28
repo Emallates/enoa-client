@@ -1,7 +1,7 @@
 {
   "name": "enoa-client",
   "version": "0.0.6",
-  "description": "",
+  "description": "<!--NO_HTML-->",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nomi-ramzan/client.git"
+    "url": "git+https://github.com/Emallates/enoa-client.git"
   },
   "author": "Nauman Ramzan ( nomi@emallates.com )",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nomi-ramzan/client/issues"
+    "url": "https://github.com/Emallates/enoa-client/issues"
   },
-  "homepage": "https://github.com/nomi-ramzan/client#readme",
+  "homepage": "https://github.com/Emallates/enoa-client#readme",
   "dependencies": {
     "cb": "^0.1.0",
     "extend": "^3.0.0",
@@ -25,5 +25,8 @@
   },
   "devDependencies": {
     "gulp-task-builder": "^1.0.2"
+  },
+  "directories": {
+    "test": "test"
   }
 }

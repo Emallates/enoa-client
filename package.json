@@ -1,6 +1,6 @@
 {
   "name": "enoa-client",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "<!--NO_HTML-->",
   "main": "server.js",
   "scripts": {

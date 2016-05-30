@@ -2,6 +2,8 @@
 
 # ENOA Client for JavaScript
 
+[![Join the chat at https://gitter.im/Emallates/enoa-client](https://badges.gitter.im/Emallates/enoa-client.svg)](https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <!--/NO_HTML-->
 
 

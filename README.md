@@ -4,6 +4,7 @@
 
 <!--/NO_HTML-->
 
+[![Gitter](https://badges.gitter.im/Emallates/enoa-client.svg)](https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
 
 <!--NO_HTML-->
 

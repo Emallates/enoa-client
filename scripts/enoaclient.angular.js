@@ -1,7 +1,7 @@
 'use strict';
 
-var enoaclient = require('./lib/enoaclient');
-var jQueryConnector = require('./lib/connectors/angular.js');
+var enoaclient = require('../lib/enoaclient');
+var jQueryConnector = require('../lib/connectors/angular.js');
 enoaclient.connector = jQueryConnector;
 
 

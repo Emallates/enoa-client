@@ -1,0 +1,46 @@
+var fs = require('fs');
+var path = require('path');
+
+var mversion = require('mversion');
+
+if (!process.env.VERSION) {
+  throw new Error('release: Usage is VERSION=MAJOR.MINOR.PATCH npm run release');
+}
+
+var semver = require('semver');
+var currentVersion = require('../lib/version.js');
+var newVersion = process.env.VERSION;
+
+if(! ~['PATCH','MINOR','MAJOR'].indexOf(newVersion.toUpperCase()) ) throw new Error('release: Provided new version (' + newVersion + ') is not a valid version. VERSION = MAJOR | MINOR | PATCH');
+
+release();
+
+/* Release Patch */
+function release(){
+	newVersion = getVersion();
+	console.log('Releasing ' + newVersion);
+	updateVersion();
+}
+
+function getVersion(){
+	var nv = currentVersion.split('.');
+	switch(newVersion.toUpperCase()){
+		case 'PATCH': return nv[0]+"."+nv[1]+"."+(parseInt(nv[2])+1).toString();
+		case 'MINOR': return nv[0]+"."+(parseInt(nv[1])+1).toString()+"."+nv[2];
+		case 'MAJOR': return (parseInt(nv[0])+1).toString()+"."+nv[1]+"."+nv[2];
+	}
+}
+
+function updateVersion() {
+	console.log('..Updating lib/version.js');
+	var versionFile = path.join(__dirname, '../lib/version.js');
+	var newContent = "'use strict';\n\nmodule.exports = '" + newVersion + "';\n";
+	fs.writeFileSync(versionFile, newContent);
+	console.log('..Updating bower.json and package.json');
+	mversion.update(newVersion);
+}
+
+
+
+
+

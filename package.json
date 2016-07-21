@@ -1,11 +1,17 @@
 {
   "name": "enoa-client",
-  "version": "0.0.7",
-  "description": "<!--NO_HTML-->",
+  "version": "0.8.18",
+  "versionc": "0.0.7",
+  "description": "The JavaScript client lets you use the ENOA on the frontend (browsers) or on the backend (Node.js) using multi adapters.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "node ./test/index.js",
+    "clean": "git clean builds/ -f && git checkout builds/",
+    "release": "node ./scripts/release && npm run build",
+    "build": "gulp build",
+    "release_patch": "npm run clean && SET VERSION=PATCH&& npm run release",
+    "release_minor": "npm run clean && SET VERSION=MINOR&& npm run release",
+    "release_major": "npm run clean && SET VERSION=MAJOR&& npm run release"
   },
   "repository": {
     "type": "git",
@@ -19,12 +25,16 @@
   "homepage": "https://github.com/Emallates/enoa-client#readme",
   "dependencies": {
     "cb": "^0.1.0",
+    "clone": "^1.0.2",
     "extend": "^3.0.0",
     "foreach": "^2.0.5",
-    "inherits": "^2.0.1"
+    "inherits": "^2.0.1",
+    "zlogjs-adapter": "0.0.4"
   },
   "devDependencies": {
-    "gulp-task-builder": "^1.0.2"
+    "gulp-browserify": "^0.5.1",
+    "gulp-task-builder": "^1.0.2",
+    "mversion": "^1.10.1"
   },
   "directories": {
     "test": "test"

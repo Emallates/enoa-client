@@ -48,14 +48,16 @@ Several installation options are available:
     var enoaClient = require('enoa-client');
     var zlogjsAdapter = require('zlogjs-adapter');
     var configs = {
-    	port:'9000',
-    	mode:"central",
-    	host:'localhost', 
-    	appId:'your-appid',
-    	apiKey:'your-apiKey',
-    	adapter:zlogjsAdapter
+	port:'9000',
+	mode:"central",
+	host:'localhost', 
+	appId:'your-appid',
+	apiKey:'your-apiKey',
+	adapter:zlogjsAdapter
     }
-    enoaClient = enoaClient({ appId:'client-appId', apiKey:'client-apiKey', collections:{zlog:configs}})
+    enoaClient = enoaClient({ appId:'appId', apiKey:'apiKey', collections:{zlog:configs}});
+
+
 
 ####VanilaJS
 
@@ -102,3 +104,7 @@ Coming soon
  - [Gitter](https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge "Live chat")
  - [StackOverflow](http://stackoverflow.com/questions/tagged/enoaclient "Ask Questions")
  - [Github](https://github.com/Emallates/enoa-client/issues "Open an issue")
+
+#Copyright and license
+
+Code and documentation copyright 2011-2016 Emallates, Inc. Code released under the MIT license. Docs released under Creative Commons.

@@ -44,7 +44,7 @@ Several installation options are available:
 
 #Usage
 
-####Server side NodeJS ( ZLogJS )
+####Server side NodeJS ( example with ZLogJS-Adapter )
     var enoaClient = require('enoa-client');
     var zlogjsAdapter = require('zlogjs-adapter');
     var configs = {
@@ -104,7 +104,10 @@ Coming soon
  - [Gitter](https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge "Live chat")
  - [StackOverflow](http://stackoverflow.com/questions/tagged/enoaclient "Ask Questions")
  - [Github](https://github.com/Emallates/enoa-client/issues "Open an issue")
+<<<<<<< HEAD
 
 #Copyright and license
 
 Code and documentation copyright 2011-2016 Emallates, Inc. Code released under the MIT license. Docs released under Creative Commons.
+=======
+>>>>>>> dbcd3c5fc6034a178696efa91afc87228e123680

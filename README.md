@@ -27,7 +27,7 @@ Please feel free to use our adapter examples as the structure for your own custo
 #### Community Adapters
 
   - Server-side
-  	* [ZLogJS](https://www.npmjs.com/package/zlogjs-adapter "https://www.npmjs.com/package/zlogjs-adapter")
+  	* [NodeJS](https://www.npmjs.com/package/zlogjs-adapter "https://www.npmjs.com/package/zlogjs-adapter")
   - Client-side
 	* [VanillaJS](https://cdn.jsdelivr.net/enoaclient.vanilla/0.0.8/enoaclient.vanilla.min.js "https://cdn.jsdelivr.net/enoaclient.vanilla/0.0.8/enoaclient.vanilla.min.js")
 	* [jQueryJS ](https://cdn.jsdelivr.net/enoaclient.jquery/0.0.8/enoaclient.jquery.min.js "https://cdn.jsdelivr.net/enoaclient.jquery/0.0.8/enoaclient.jquery.min.js")

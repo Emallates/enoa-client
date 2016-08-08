@@ -24,7 +24,7 @@
 
 ## Overview
 
-The enoa-client is a universal JavaScript client, which enables in combination with an ADAPTER, Client-Server Side communications. Recommended Use Cases are e.g the use of web services(fallback, retry, CDN, timeout strategies thus minimizing bottlenecks for High-Availablity on the client-side). The modular structure includes the options of server-sided(Node.JS) as well as browser-sided(Vanilla, jQuery, AngularJS) client implementations. Recommended adapters can be found at https://github.com/Emallates.
+The enoa-client is a universal JavaScript client, which enables in combination with an ADAPTER, Client-Server Side communications. Recommended Use Cases are e.g the use of web services(fallback, retry, CDN, timeout strategies thus minimizing bottlenecks for High-Availablity on the client-side). The modular structure includes the options of server-sided(Node.JS) as well as browser-sided(Vanilla, jQuery, AngularJS) client implementations. Recommended adapters can be found at [Emallates](https://github.com/Emallates "Emallates").
 
 Please feel free to use our adapter examples as the structure for your own customized adapters! Recommendations and improvement hints concerning the structure of the enoa-client and the adapters , therefore, are always very welcome!
 

@@ -1,12 +1,16 @@
 #Enoa Client
 
 [![Version][version-svg]][package-url]
+[![travis-svg]][travis-url]
 [![License][license-image]][license-url]
 [![Downloads][downloads-image]][downloads-url]
 [![Gitter][gitter-image]][gitter-url]
 [![StackVverflow][stackoverflow-image]][stackoverflow-url]
 
+
 [version-svg]: https://img.shields.io/npm/v/enoa-client.svg?style=flat-square
+[travis-svg]: https://img.shields.io/travis/Emallates/enoa-client/master.svg?style=flat-square
+[travis-url]: https://api.travis-ci.org/Emallates/enoa-client.svg?branch=master
 [package-url]: https://npmjs.org/package/enoa-client
 [license-image]: https://img.shields.io/badge/license-MIT-green.svg?style=flat-square
 [license-url]: LICENSE.txt

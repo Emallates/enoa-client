@@ -5,7 +5,7 @@
   "description": "The JavaScript client lets you use the ENOA on the frontend (browsers) or on the backend (Node.js) using multi adapters.",
   "main": "server.js",
   "scripts": {
-    "test": "node ./test/index.js",
+    "test": "mocha",
     "clean": "git clean builds/ -f && git checkout builds/",
     "release": "node ./scripts/release && npm run build",
     "build": "gulp build",
@@ -32,8 +32,10 @@
     "zlogjs-adapter": "0.0.4"
   },
   "devDependencies": {
+    "easy-mocha": "0.0.2",
     "gulp-browserify": "^0.5.1",
     "gulp-task-builder": "^1.0.2",
+    "mocha": "^3.0.2",
     "mversion": "^1.10.1"
   },
   "directories": {

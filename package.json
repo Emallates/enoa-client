@@ -37,7 +37,8 @@
     "gulp-task-builder": "^1.0.2",
     "lodash": "^4.14.1",
     "mocha": "^3.0.2",
-    "mversion": "^1.10.1"
+    "mversion": "^1.10.1",
+    "zlogjs-adapter": "0.0.4"
   },
   "directories": {
     "test": "test"

@@ -44,7 +44,7 @@ Several installation options are available:
 
 #Usage
 
-####Server side NodeJS ( ZLogJS )
+####Server side NodeJS ( example with ZLogJS-Adapter )
     var enoaClient = require('enoa-client');
     var zlogjsAdapter = require('zlogjs-adapter');
     var configs = {

@@ -1,4 +1,5 @@
-#Enoa Client
+# Enoa Client
+Javascript client which is able to integrate multi adapters at the same time even in different envoirments
 
 [![Version][version-svg]][package-url]
 [![travis-svg]][travis-url]
@@ -46,9 +47,9 @@ Several installation options are available:
 - Install with [bower](https://www.bower.io) ``` bower install enoa-client ```
 
 
-#Usage
+# Usage
 
-####Server side NodeJS ( example with ZLogJS-Adapter )
+#### Server side NodeJS ( example with ZLogJS-Adapter )
     var enoaClient = require('enoa-client');
     var zlogjsAdapter = require('zlogjs-adapter');
     var configs = {
@@ -63,13 +64,13 @@ Several installation options are available:
 
 
 
-####VanilaJS
+#### VanilaJS
 
 	<script type="text/javascript" src="path/to/enoaclient.vanilla.min.js"></script>
 	<script type="text/javascript">
 		var enoaClient = windos.enoaclient(options)
 	</script>
-####jQuery
+#### jQuery
 
 	<script type="text/javascript" src="path/to/jquery.js"></script>
 	<script type="text/javascript" src="path/to/enoaclient.jquery.min.js"></script>
@@ -77,7 +78,7 @@ Several installation options are available:
 		var enoaClient = jQuery.enoaClient(options);
 	</script>
 
-####AngularJS
+#### AngularJS
 
 This package will use [$http](https://docs.angularjs.org/api/ng/service/$http) for HTTP communication.
 
@@ -93,23 +94,23 @@ This package will use [$http](https://docs.angularjs.org/api/ng/service/$http) f
 		}]);
 	</script>
 
-##CONTRIBUTION
+## CONTRIBUTION
 Please read through our contributing [guidelines](https://github.com/Emallates/enoa-client/blob/master/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
 
-####Build from source
+#### Build from source
 1. clone git repository ``` git clone https://github.com/Emallates/enoa-client.git ```
 2. Run `npm install`
 3. Run `npm run build`
 
-####Tests
+#### Tests
 Coming soon
 
-#Community
+## Community
  - [Gitter](https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge "Live chat")
  - [StackOverflow](http://stackoverflow.com/questions/tagged/enoaclient "Ask Questions")
  - [Github](https://github.com/Emallates/enoa-client/issues "Open an issue")
 
-#Copyright and license
+#### Copyright and license
 
 Code and documentation copyright 2011-2016 Emallates, Inc. Code released under the MIT license. Docs released under Creative Commons.
 

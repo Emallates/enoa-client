@@ -1,6 +1,6 @@
 {
   "name": "enoa-client",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "builds/enoaclient.vanilla.js",
   "description": "The JavaScript client lets you use the ENOA on the frontend (browsers) or on the backend (Node.js) using multi adapters.",
   "authors": [

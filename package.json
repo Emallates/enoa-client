@@ -24,12 +24,13 @@
   },
   "homepage": "https://github.com/Emallates/enoa-client#readme",
   "dependencies": {
+    "@zlogjs/adapter": "0.0.15",
     "cb": "^0.1.0",
     "clone": "^1.0.2",
     "extend": "^3.0.0",
     "foreach": "^2.0.5",
     "inherits": "^2.0.1",
-    "zlogjs-adapter": "0.0.4"
+    "querystring-es3": "^0.2.1"
   },
   "devDependencies": {
     "easy-mocha": "0.0.2",

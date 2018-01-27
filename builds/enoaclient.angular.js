@@ -1,10 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = collectionBase;
-var utils = require('../utils');
-var errors = require('../errors');
+var utils = require('../utils')
+	, errors = require('../errors')
+	, transporter = require('../transporter')
 function collectionBase(context, opts){
 	if(!opts.adapter) throw new errors.EnoaError("collection.adapter is required");
 	var adapter = utils.popAttr(opts, 'adapter');
+	adapter = getAdapter(adapter);
 	var connector = utils.popAttr(context.configs, 'connector');
 	var allOpts = utils.clone(context.configs);
 	context.configs.connector = connector;
@@ -12,13 +14,31 @@ function collectionBase(context, opts){
 
 	utils.extend(allOpts, opts);
 	var collection = function(){
+		this.connector = new connector(opts);
 		this.adapter = new adapter(context, allOpts);
+		this.transporter = new transporter(this, opts)
+		this._sendRequest = function (reqOpts) {
+			return this.transporter._jsonRequest(reqOpts)
+		}
 		if(this.adapter.extend != undefined) utils.extend(collection.prototype, this.adapter.extend() );
 	}
 	utils.extend(collection.prototype, require('../sql'));
 	return collection;
 }
-},{"../errors":4,"../sql":7,"../utils":10}],2:[function(require,module,exports){
+
+function getAdapter(adapter) {
+	try {
+		switch (utils.type(adapter)) {
+			case 'String': return require(adapter);
+			case 'Function': return adapter;
+			default: 
+				throw new Error('Invalid Adapter' + adapter);
+		}
+	}catch(exp) {
+		throw new Error('Invalid Adapter' + adapter);
+	}
+}
+},{"../errors":4,"../sql":7,"../transporter":10,"../utils":11}],2:[function(require,module,exports){
 function AngularConnector(configs){
 	var _s = this;
 	_s.toJson = configs.toJson;
@@ -61,9 +81,9 @@ module.exports = AngularConnector;
 
 },{}],3:[function(require,module,exports){
 'use strict';
-var utils = require('./utils');
-var errors = require('./errors')
-var collectionBase = require('./collection')
+var utils = require('./utils')
+	, errors = require('./errors')
+	, collectionBase = require('./collection')
 
 module.exports = enoaClient;
 
@@ -74,11 +94,13 @@ function enoaClient(opts){
 	if (!(_s instanceof enoaClient)) { return new enoaClient(opts); }
 	opts = utils.clone(opts);
 	var collections = utils.popAttr(opts, 'collections');
-  this.configs = opts;
   opts.connector = opts.connector || enoaClient.connector;
-  opts.connector = new opts.connector(opts);
-  enoaClient.prototype._sendRequest = opts.connector.getRequestFun();
-  if(!opts.connector) throw new errors.EnoaError('Invalid connector is defined in client.');
+  // opts.connector = new opts.connector(opts);
+  
+  this.configs = opts;
+  // opts.connector.getRequestFun();
+  // enoaClient.prototype._sendRequest = new transporter(opts);
+  // if(!opts.connector) throw new errors.EnoaError('Invalid connector is defined in client.');
   if(collections){ _s.loadCollection(collections); }
 
 	return _s;
@@ -87,17 +109,19 @@ function enoaClient(opts){
 enoaClient.prototype.loadCollection = function(collections){
 	var _s = this;
 	for(var i in collections){
+
 		if(!utils.isObject(collections[i])) throw new errors.EnoaError('Usage: Collection(s) must be Object/Array');
 		var name = utils.getName(collections[i], i);
 		if(_s[name]){ console.log(name+" skiped."); continue;}
 		var newColl = collectionBase(_s, collections[i]);
 		_s[name] = new newColl();
+		
 	}	
 };
-enoaClient.prototype._sendRequest = function () {
-	throw new Error("This method should owerwritten by client's connector.");
-}
-},{"./collection":1,"./errors":4,"./utils":10}],4:[function(require,module,exports){
+// enoaClient.prototype._sendRequest = function () {
+// 	throw new Error("This method should owerwritten by client's connector.");
+// }
+},{"./collection":1,"./errors":4,"./utils":11}],4:[function(require,module,exports){
 var inherits = require('inherits');
 
 function EnoaError(message, extraProperties) {
@@ -145,6 +169,11 @@ function createCustomError(name, message) {
 // late exports to let various fn defs and inherits take place
 module.exports = {
   EnoaError: EnoaError,
+  InvalidConnector: createCustomError(
+    'InvalidConnector',
+    'Given connector is invalid. Please use a valid connector.'
+  ),
+
   UnparsableJSON: createCustomError(
     'UnparsableJSON',
     'Could not parse the incoming response as JSON, see err.more for details'
@@ -171,7 +200,7 @@ module.exports = {
   )
 };
 
-},{"foreach":17,"inherits":19}],5:[function(require,module,exports){
+},{"foreach":18,"inherits":20}],5:[function(require,module,exports){
 var normalize= require('../utils/normalize')
 
 module.exports = function create(values, callback) {
@@ -188,7 +217,7 @@ function createObject(obj, callback){
 	this.adapter.create(obj, callback);
 	// return callback(null, obj);
 }
-},{"../utils/normalize":11}],6:[function(require,module,exports){
+},{"../utils/normalize":12}],6:[function(require,module,exports){
 var normalize= require('../utils/normalize')
 
 module.exports = function find(values, callback) {
@@ -200,7 +229,7 @@ module.exports = function find(values, callback) {
 function findObject(obj, callback){
 	this.adapter.find(obj, callback);
 }
-},{"../utils/normalize":11}],7:[function(require,module,exports){
+},{"../utils/normalize":12}],7:[function(require,module,exports){
 module.exports = {
 	create:require('./create'),
 	find:require('./find'),
@@ -221,7 +250,7 @@ module.exports = function remove(values, callback) {
 function removeObject(obj, callback){
 	this.adapter.remove(obj, callback);
 }
-},{"../utils/normalize":11}],9:[function(require,module,exports){
+},{"../utils/normalize":12}],9:[function(require,module,exports){
 var normalize= require('../utils/normalize')
 
 module.exports = function update(values, callback) {
@@ -233,16 +262,84 @@ module.exports = function update(values, callback) {
 function updateObject(obj, callback){
 	this.adapter.update(obj, callback);
 }
-},{"../utils/normalize":11}],10:[function(require,module,exports){
-var _u = module.exports;
+},{"../utils/normalize":12}],10:[function(require,module,exports){
+var _ = require('./utils')
+var errors = require('./errors')
+module.exports = requestTransporter;
 
-_u.toString = function toString(val){ return Object.prototype.toString.call(val); }
-_u.isObject = function isObject(obj){ return _u.toString(obj) === "[object Object]"; }
-_u.getName = function getName(opts, def){ def = def || "unknown"; return opts.identity || opts.name || opts.id || def; }
-_u.popAttr = function popAttr(obj, attr){ var val = obj[attr]; delete obj[attr]; return val;}
-_u.extend = require('extend') || function popAttr(dest, src){ for(var i in src) if(typeof dest[i] === undefined) dest[i] = src[i]; }
-_u.clone =  require('clone') || function popAttr(obj, deep){ if(!deep) return JSON.parse(JSON.stringify(obj)); return _u.extend({}, obj); }
-},{"clone":15,"extend":16}],11:[function(require,module,exports){
+function requestTransporter(context, options) {
+
+	this.context = context;
+
+	this.opts = _.extend({
+		useFallback:false,
+		tries:0,
+		maxTries:3,
+		timeout:2000,
+	}, (options||{}))
+}
+
+requestTransporter.prototype._jsonRequest = function(initOpts) {
+	var tries = 0;
+	var _reqOpts = {
+		url:initOpts.url,
+		body:initOpts.body,
+		method:initOpts.method,
+		params:initOpts.params,
+		hearder:initOpts.hearder
+	}
+
+	return doRequest(this.context.connector.request, _reqOpts)
+
+	
+	function doRequest(requester, reqOpts, addOpts) {
+		try{
+			requester.call(this, reqOpts, callDone, addOpts)
+		}catch(exp){
+			return sendResp(exp);
+		}
+	}
+
+	function callDone(err, resp) {
+		if(err){
+			//TODO:- this.opts.useFallback => tryFallback
+			return sendResp(err);
+		}
+		return sendResp(null, resp);
+
+	}
+
+	function sendResp(err, resp) {
+		return (initOpts.callback) ? initOpts.callback(err, resp) : err || resp;
+	}
+
+	function tryFallback(err) {
+		var shouldRetry = Math.floor(err.status % 100) !== 4;
+		if( shouldRetry && this.opts.useFallback && this.hasFallback ){
+			tries += 1;
+			var fallbackOpts = ( _.isFunction(this.context.adapter.getRetryOpts) )
+				? this.context.adapter.getRetryOpts( _reqOpts, {tries:tries, timeout:(this.opts.timeout*tries)} )
+				: _reqOpts;
+			doRequest(this.context.adapter.fallback, fallbackOpts, callDone)
+		}
+	}
+	// return initOpts.callback ? initOpts.callback(null, initOpts) : initOpts;
+};
+},{"./errors":4,"./utils":11}],11:[function(require,module,exports){
+'use strict';
+var _ = module.exports;
+
+_.type = function toString(val){ return Object.prototype.toString.call(val).replace(/\[object |\]/g, ''); }
+Array('Object', 'Array', 'Function', 'String', 'Undefined', 'Null').forEach(function(type){
+	_['is'+type] = function (val) { return _.type(val) == type; }
+})
+// _.isObject = function isObject(obj){ return _.type(obj) == "Object"; }
+_.toString = function toString(val){ return Object.prototype.toString.call(val); }
+_.getName = function getName(opts, def){ def = def || "unknown"; return opts.identity || opts.name || opts.id || def; }
+_.popAttr = function popAttr(obj, attr){ var val = obj[attr]; delete obj[attr]; return val;}
+_.extend = require('extend') || function popAttr(dest, src){ for(var i in src) if(typeof dest[i] === undefined) dest[i] = src[i]; }
+_.clone =  require('clone') || function popAttr(obj, deep){ if(!deep) return JSON.parse(JSON.stringify(obj)); return _.extend({}, obj); }
+},{"clone":16,"extend":17}],12:[function(require,module,exports){
 var _cb = require('cb');
 var normalize = {};
 var toString = Object.prototype.toString;
@@ -256,7 +353,7 @@ normalize.callback = function callbackNormalize(cb, cnf) { cnf = cnf || {};
 
 
 module.exports = normalize;
-},{"cb":14}],12:[function(require,module,exports){
+},{"cb":15}],13:[function(require,module,exports){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 ;(function (exports) {
@@ -382,7 +479,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	exports.fromByteArray = uint8ToBase64
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1493,7 +1590,7 @@ function assert (test, message) {
   if (!test) throw new Error(message || 'Failed assertion')
 }
 
-},{"base64-js":12,"ieee754":18}],14:[function(require,module,exports){
+},{"base64-js":13,"ieee754":19}],15:[function(require,module,exports){
 (function (process){
 module.exports = function(callback) {
 
@@ -1535,7 +1632,7 @@ TimeoutError.prototype = new Error;
 TimeoutError.prototype.constructor = TimeoutError;
 TimeoutError.prototype.name = 'TimeoutError';
 }).call(this,require("qC859L"))
-},{"qC859L":20}],15:[function(require,module,exports){
+},{"qC859L":21}],16:[function(require,module,exports){
 (function (Buffer){
 var clone = (function() {
 'use strict';
@@ -1699,7 +1796,7 @@ if (typeof module === 'object' && module.exports) {
 }
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":13}],16:[function(require,module,exports){
+},{"buffer":14}],17:[function(require,module,exports){
 'use strict';
 
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -1787,7 +1884,7 @@ module.exports = function extend() {
 };
 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 
 var hasOwn = Object.prototype.hasOwnProperty;
 var toString = Object.prototype.toString;
@@ -1811,7 +1908,7 @@ module.exports = function forEach (obj, fn, ctx) {
 };
 
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -1897,7 +1994,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -1922,7 +2019,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1987,7 +2084,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var enoaclient = require('../lib/enoaclient');
@@ -2011,4 +2108,4 @@ angular.module('enoa', [])
 
 	return factory;
 }])
-},{"../lib/connectors/angular.js":2,"../lib/enoaclient":3}]},{},[21])
+},{"../lib/connectors/angular.js":2,"../lib/enoaclient":3}]},{},[22])

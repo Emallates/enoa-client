@@ -2,11 +2,13 @@
 
 [![Version][version-svg]][package-url]
 [![travis-svg]][travis-url]
-[![License][license-image]][license-url]
 [![Downloads][downloads-image]][downloads-url]
+[![dependencies Status][dep-image]][dep-url]
+
+
+[![License][license-image]][license-url]
 [![Gitter][gitter-image]][gitter-url]
 [![StackVverflow][stackoverflow-image]][stackoverflow-url]
-
 
 [version-svg]: https://img.shields.io/npm/v/enoa-client.svg?style=flat-square
 [travis-svg]: https://img.shields.io/travis/Emallates/enoa-client/master.svg?style=flat-square
@@ -20,6 +22,8 @@
 [gitter-url]: https://gitter.im/Emallates/enoa-client?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge
 [stackoverflow-image]: https://img.shields.io/badge/stackoverflow-enoaclient-blue.svg
 [stackoverflow-url]: http://stackoverflow.com/questions/tagged/enoaclient 
+[dep-url]: https://david-dm.org/emallates/enoa-client
+[dep-image]: https://david-dm.org/emallates/enoa-client/status.svg
 
 
 ## Overview
@@ -31,7 +35,7 @@ Please feel free to use our adapter examples as the structure for your own custo
 #### Community Adapters
 
   - Server-side
-  	* [NodeJS](https://www.npmjs.com/package/zlogjs-adapter "https://www.npmjs.com/package/zlogjs-adapter")
+  * [NodeJS](https://www.npmjs.com/package/zlogjs-adapter "https://www.npmjs.com/package/zlogjs-adapter")
   - Client-side
 	* [VanillaJS](https://cdn.jsdelivr.net/enoaclient.vanilla/0.0.8/enoaclient.vanilla.min.js "https://cdn.jsdelivr.net/enoaclient.vanilla/0.0.8/enoaclient.vanilla.min.js")
 	* [jQueryJS ](https://cdn.jsdelivr.net/enoaclient.jquery/0.0.8/enoaclient.jquery.min.js "https://cdn.jsdelivr.net/enoaclient.jquery/0.0.8/enoaclient.jquery.min.js")
